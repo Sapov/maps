@@ -1,0 +1,28 @@
+
+    <h2>Рельеф </h2>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th> №</th>
+                <th>Условное обозначение</th>
+                <th>Название</th>
+                <th>Описание</th>
+                <th>Примеры</th>
+                <th>Категория</th>
+
+           </thead>
+            <tbody>
+            {% for item in object_list %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td><a>{% load thumbnail %} <img src="{% thumbnail item.pic 200x0 %}" class="image-detail"></a></td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.descriptions }}</td>
+                <td><a>{% load thumbnail %} <img src="{% thumbnail item.example 200x0 %}" class="image-detail"></a></td>
+                <td>{{ item.category }}</td>
+
+                {% endfor %}
+
