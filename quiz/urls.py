@@ -1,8 +1,15 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from .views import InfoListView
+from .views import InfoListView, question, check_answer
+
+app_name = 'quiz'
+
 
 urlpatterns = [
-    path('', InfoListView.as_view(), name='gh'),
+    path('', InfoListView.as_view(), name='allinfo'),
+    path('question/', question, name='one_question'),
+    path('check_answer/', check_answer, name='check_answer'),
+
+
 ]

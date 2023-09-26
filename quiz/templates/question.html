@@ -1,0 +1,22 @@
+<h1>Какой знак нарисован на картинке?</h1>
+<!--<h5>{{items_random_question}}</h5>-->
+
+
+<td><a>{% load thumbnail %} <img src="{% thumbnail items_random_question.pic 200x0 %}" class="image-detail"></a></td>
+
+
+<form action="{% url 'quiz:check_answer' %}" method="post">
+{% csrf_token %}
+    {% for k, v in random_answer_dict.items %}
+    <input id="{{k}}" type="radio" name="question" value="{{k}}">
+    <label for="yes">{{v}}</label>
+    {% endfor %}
+    <p>
+            <input type="submit" value="Отправить">
+
+    </p>
+
+
+</form>
+
+
