@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure--*h9&af+of6qyhxdt4-he-3kc6-qt6j%o-j=j9(m1krhm_mhyf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.getenv('ALLOWED_HOST')]
 
 
 # Application definition
@@ -162,3 +162,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+CSRF_TRUSTED_ORIGINS = []
+if scrf_subdomain := os.getenv("SCRF_SUBDOMAIN"):
+    CSRF_TRUSTED_ORIGINS += [f'http://{scrf_subdomain}', f'https://{scrf_subdomain}']

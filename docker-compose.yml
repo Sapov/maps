@@ -1,0 +1,57 @@
+version: "2"
+
+services:
+
+  youtube_project:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image: django_docker:latest
+    container_name: yt_django
+    depends_on:
+      - yt_postgres
+    volumes:
+      - static_volume:/yt/static
+      - media_volume:/yt/media
+    env_file:
+      - .env
+    environment:
+      - VIRTUAL_HOST=${ALLOWED_HOST}
+      - LETSENCRYPT_HOST=${ALLOWED_HOST}
+    command: >
+      bash -c "python manage.py collectstatic --noinput && python manage.py migrate  && gunicorn -b 0.0.0.0:8000 maps.wsgi:application"
+  nginx:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./docker/nginx/
+    container_name: yt_nginx
+    image: yt_nginx
+    volumes:
+      - static_volume:/yt/static
+      - media_volume:/yt/media
+      - certs:/etc/nginx/certs
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    depends_on:
+      - youtube_project
+    ports:
+      - "${NGINX_EXTERNAL_PORT}:80"
+      - "${NGINX_EXTERNAL_SSL_PORT}:443"
+  acme_companion:
+    image: nginxproxy/acme-companion:2.2
+    container_name: acme_companion
+    volumes_from:
+      - nginx
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - acme:/etc/acme.sh
+
+
+volumes:
+  static_volume:
+  media_volume:
+  certs:
+  vhost:
+  html:
+  acme:
