@@ -8,8 +8,7 @@ services:
       context: .
     image: django_docker:latest
     container_name: yt_django
-    depends_on:
-      - yt_postgres
+
     volumes:
       - static_volume:/yt/static
       - media_volume:/yt/media
