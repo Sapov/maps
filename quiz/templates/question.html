@@ -8,15 +8,14 @@
 <form action="{% url 'quiz:check_answer' %}" method="post">
 {% csrf_token %}
     {% for k, v in random_answer_dict.items %}
-    <input id="{{k}}" type="radio" name="question" value="{{k}}">
+    <input id="{{k}}" type="radio" name="answer" value="{{k}}">
     <label for="yes">{{v}}</label>
     {% endfor %}
     <p>
             <input type="submit" value="Отправить">
-
     </p>
 
 
 </form>
 
-
+<p>{{res}}</p>

@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+
+<h2>Ваш ответ: {{ans}}</h2>
+
+<form action="{% url 'quiz:one_question' %}" method="post">
+{% csrf_token %}
+
+    <p>
+            <input type="submit" value="Дальше">
+    </p>

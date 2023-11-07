@@ -25,3 +25,9 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Категории'
         verbose_name = 'Категория'
+
+
+class Quest(models.Model):
+    question = models.ForeignKey(InfoObjects, on_delete=models.PROTECT)  # Вопрос и картинка
+    vars_ans = models.CharField(max_length=10)  # варианты ответов
+    ans = models.IntegerField()  # ответ пользователя
