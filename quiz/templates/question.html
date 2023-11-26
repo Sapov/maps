@@ -11,11 +11,10 @@
     <input id="{{k}}" type="radio" name="answer" value="{{k}}">
     <label for="yes">{{v}}</label>
     {% endfor %}
-    <p>
-            <input type="submit" value="Отправить">
-    </p>
+        <input hidden="t " name='true_answer' value="{{items_random_question}}">
+    <p></p>
+        <input type="submit" value="Отправить">
 
 
 </form>
 
-<p>{{res}}</p>

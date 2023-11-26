@@ -49,9 +49,11 @@ def quantity(request):
 
 
 def question(request):
+    """Отображение страницы вопроса"""
     if request.POST:
         logger.info(f'request.POST{request.POST}')
         context = Question().run()
+
         return render(request, 'question.html', context)
     else:
         logger.info(f'request.POST{request.POST}')
@@ -61,16 +63,15 @@ def question(request):
 
 
 def check_answer(request):
+    """Страница ответа"""
     if request.POST:
-        logger.info(f'request.POST{request.POST}')
         ans = request.POST["answer"]
-        logger.info(f'NUMBER ANSWER: {ans}')
-        # if ans ==
-        # ans = Question().check_answer(ans)
+        true_answer = request.POST["true_answer"]
+        logger.info(f'[INGO] Ответ пересылаемый от формы {request.POST}')
         text_answ = InfoObjects.objects.get(id=ans)
 
         # ans = Question().check_answer(answer)
-        context = {'ans': text_answ}
+        context = {'ans': text_answ, 'true_answer':true_answer}
         return render(request, 'check_answer.html', context)
 
 

@@ -1,6 +1,7 @@
 
 
 <h2>Ваш ответ: {{ans}}</h2>
+<h3>Правильный ответ: {{true_answer}}</h3>
 
 <form action="{% url 'quiz:one_question' %}" method="post">
 {% csrf_token %}
